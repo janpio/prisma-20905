@@ -14,9 +14,13 @@
     "prisma": "^5.2.0",
     "prisma-json-types-generator": "^3.0.0-beta.4",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
     "@prisma/client": "^5.2.0"
+  },
+  "prisma": {
+    "seed": "ts-node --require tsconfig-paths/register prisma/seed.ts"
   }
 }
