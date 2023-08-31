@@ -24,5 +24,8 @@ jobs:
       - name: 📥 Install deps
         run: nix develop --command npm ci
 
+      - name: Start postgres
+        run: nix develop --command pg_ctl start
+
       - name: 🛠 Run migrations
         run: DEBUG=prisma* nix develop --command npx prisma migrate reset --force
