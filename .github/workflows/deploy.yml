@@ -1,0 +1,28 @@
+name: 🚀 Repro!
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  prisma:
+    name: ⚫️ prisma
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: ⬇️  Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ❄️  Install Nix
+        uses: cachix/install-nix-action@master
+
+      - name: 🏄 Copy test env vars
+        run: cp .env.example .env
+
+      - name: 📥 Install deps
+        run: nix develop --command npm ci
+
+      - name: 🛠 Run migrations
+        run: DEBUG=prisma* nix develop --command npx prisma migrate reset --force
