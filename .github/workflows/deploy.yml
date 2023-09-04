@@ -28,4 +28,4 @@ jobs:
         run: nix develop --command pg_ctl start
 
       - name: 🛠 Run migrations
-        run: DEBUG=prisma* nix develop --command npx prisma migrate reset --force
+        run: DEBUG=prisma* nix develop --command npx prisma migrate reset --force --skip-seed
