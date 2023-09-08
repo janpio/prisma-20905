@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Start postgres
-        run: pg_ctl start
+        run: docker compose up -d
 
       - name: 🛠 Run migrations
         run: DEBUG=prisma* npx prisma migrate reset --force --skip-seed
