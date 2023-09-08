@@ -2,9 +2,6 @@ name: 🚀 Repro!
 
 on:
   push:
-    branches:
-      - main
-
 
 jobs:
   prisma:
@@ -15,17 +12,20 @@ jobs:
       - name: ⬇️  Checkout repo
         uses: actions/checkout@v3
 
-      - name: ❄️  Install Nix
-        uses: cachix/install-nix-action@master
+      # - name: ❄️  Install Nix
+      #   uses: cachix/install-nix-action@master
 
       - name: 🏄 Copy test env vars
         run: cp .env.example .env
 
       - name: 📥 Install deps
-        run: nix develop --command npm ci
+        run: npm ci
 
       - name: Start postgres
-        run: nix develop --command pg_ctl start
+        run: docker compose up -d
 
       - name: 🛠 Run migrations
-        run: DEBUG=prisma* nix develop --command npx prisma migrate reset --force
+        run: DEBUG=prisma* npx prisma migrate reset --force --skip-seed
+
+      - name: Seed explitily
+        run: npx prisma db seed
